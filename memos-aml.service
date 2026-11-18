@@ -1,0 +1,23 @@
+[Unit]
+Description=MemOS Cloud adapter for Agent Memory Leaderboard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=memos-aml
+Group=memos-aml
+UMask=0077
+WorkingDirectory=/opt/memos-aml-adapter
+EnvironmentFile=/opt/memos-aml-adapter/.env
+ExecStart=/usr/bin/python3 /opt/memos-aml-adapter/server.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/memos-aml-adapter/data
+
+[Install]
+WantedBy=multi-user.target
